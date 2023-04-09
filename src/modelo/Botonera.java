@@ -21,12 +21,12 @@ public class Botonera extends JPanel {
         
         for (int i = 0; i < lado; i++) {
             for (int j = 0; j < lado; j++) {
-                JButton comp = new JButton();
+                MyButton comp = new MyButton(new Coordenada(i, j));
                 
                 comp.addActionListener(new ActionListener() {
 
                     public void actionPerformed(ActionEvent e) {
-                       System.out.println("Vivo");
+                       System.out.println("Vivo "+ ((MyButton)e.getSource()).getCoordenada());
 
                     }
 
