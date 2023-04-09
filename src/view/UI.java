@@ -26,7 +26,7 @@ public class UI extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenuItem mnitInicar = new JMenuItem("Iniciar");
+		JMenuItem mnitInicar = new JMenuItem("Start");
 		menuBar.add(mnitInicar);
 		
 		JMenu mnLevels = new JMenu("Niveles");
@@ -35,13 +35,16 @@ public class UI extends JFrame {
 		
 		JCheckBoxMenuItem mnitFacil = new JCheckBoxMenuItem("Facil");
 		mnLevels.add(mnitFacil);
-		mnLevels.add(mnitFacil);
+		group.add(mnitFacil);
+		mnitFacil.setSelected(true);
 		
 		JCheckBoxMenuItem mnitMedio = new JCheckBoxMenuItem("Medio");
 		mnLevels.add(mnitMedio);
+		group.add(mnitMedio);
 		
 		JCheckBoxMenuItem mnitDificil = new JCheckBoxMenuItem("Dificil");
 		mnLevels.add(mnitDificil);
+		group.add(mnitDificil);
 		
 		
 		contentPane = new JPanel();
