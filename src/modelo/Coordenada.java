@@ -54,4 +54,11 @@ public class Coordenada {
 		return posX >= 0 && posY >= 0 && posX < alto && posY < ancho;
 	}
 
+	@Override
+	public String toString() {
+		return "Posicion X" + posX + " Y " + posY;
+	}
+	
+	
+
 }
