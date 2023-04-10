@@ -62,4 +62,9 @@ public class TableroAleatorio extends Tablero {
 
 	}
 
+	public void revelarCasilla(Coordenada coordenada) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
