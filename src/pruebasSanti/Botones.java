@@ -7,6 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import javax.swing.plaf.multi.MultiLookAndFeel;
+
+import crontoller.Controlador;
+
 import javax.swing.plaf.metal.MetalLookAndFeel;
 
 import java.awt.GridLayout;
@@ -95,7 +98,7 @@ public class Botones extends JFrame {
 		// EVENTO AL INICIAR
 //		PanelBotones panelBotones= new PanelBotones(6);
 //		contentPane.add(panelBotones.getPanelBotones(), BorderLayout.CENTER);
-		contentPane.add(new PanelBotones(10).getPanelBotones(), BorderLayout.CENTER);
+		contentPane.add(new PanelBotones(10, new Controlador(null)).getPanelBotones(), BorderLayout.CENTER);
 
 	}
 

@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import crontoller.Controlador;
 import modelo.Coordenada;
 import modelo.MyButton;
 
@@ -32,9 +33,10 @@ import javax.swing.JCheckBoxMenuItem;
 public class PanelBotones extends JPanel {
 
 	JPanel panelBotones;
-
-	public PanelBotones(int numero) {
-
+	Controlador controlador;
+	
+	public PanelBotones(int numero, Controlador controlador) {
+		this.controlador=controlador;
 		panelBotones = new JPanel();
 		panelBotones.setLayout(new GridLayout(numero, numero, 0, 0));
 

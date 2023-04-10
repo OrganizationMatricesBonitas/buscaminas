@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import crontoller.ParaUI;
 import modelo.Botonera;
 
 import java.awt.BorderLayout;
@@ -15,10 +16,17 @@ import javax.swing.JMenu;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
+
 import javax.swing.JButton;
 
-public class UI extends JFrame {
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+public class UI extends JFrame {
+	ParaUI paraUI;
 	private JPanel contentPane;
 
 	/**
@@ -26,8 +34,8 @@ public class UI extends JFrame {
 	 */
 	public UI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 543, 397);
-		
+		setBounds(new Rectangle(400 , 500));
+		setLocationRelativeTo(null);
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
@@ -59,9 +67,21 @@ public class UI extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		// Pincho facil
-		Botonera panelbotones = new Botonera(3);
-//		panelbotones.setVisible(true);
-		contentPane.add(panelbotones.getContainerBotones(), BorderLayout.CENTER);
+		Botonera botoneraFacil = new Botonera(5);
+		botoneraFacil.getPanel().setVisible(false);
+		contentPane.add(botoneraFacil.getPanel(), BorderLayout.EAST);
+		
+		Botonera botoneraMedio = new Botonera(8);
+		botoneraMedio.getPanel().setVisible(false);
+		contentPane.add(botoneraMedio.getPanel(), BorderLayout.CENTER);
+		
+		Botonera botoneraDificil = new Botonera(12);
+		botoneraDificil.getPanel().setVisible(false);
+		contentPane.add(botoneraDificil.getPanel(), BorderLayout.WEST);
+		
+		paraUI = new ParaUI(contentPane, mnitFacil, mnitMedio,mnitDificil, botoneraFacil, botoneraMedio, botoneraDificil);
+		mnitInicar.addActionListener(paraUI);
+		
 		
 		
 	}
