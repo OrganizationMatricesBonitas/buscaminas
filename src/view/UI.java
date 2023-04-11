@@ -28,7 +28,7 @@ import java.awt.event.MouseEvent;
 public class UI extends JFrame {
 	ParaUI paraUI;
 	private JPanel contentPane;
-
+	Botonera botoneraFacil;
 	/**
 	 * Create the frame.
 	 */
@@ -82,9 +82,9 @@ public class UI extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		// Pincho facil
-//		Botonera botoneraFacil = new Botonera(5);
+		botoneraFacil = new Botonera(5);
+		contentPane.add(botoneraFacil.getPanel(), BorderLayout.CENTER);
 //		botoneraFacil.getPanel().setVisible(false);
-//		contentPane.add(botoneraFacil.getPanel(), BorderLayout.EAST);
 //		
 //		Botonera botoneraMedio = new Botonera(8);
 //		botoneraMedio.getPanel().setVisible(false);
@@ -95,9 +95,20 @@ public class UI extends JFrame {
 //		contentPane.add(botoneraDificil.getPanel(), BorderLayout.WEST);
 //		
 //		paraUI = new ParaUI(contentPane, mnitFacil, mnitMedio,mnitDificil, botoneraFacil, botoneraMedio, botoneraDificil);
-		paraUI = new ParaUI(contentPane, mnitFacil, mnitMedio,mnitDificil);
+//		paraUI = new ParaUI(contentPane, mnitFacil, mnitMedio,mnitDificil);
+		paraUI = new ParaUI(contentPane, mnitFacil, mnitMedio,mnitDificil, botoneraFacil);
 		
 		mnitInicar.addActionListener(paraUI);	
+//		mnitInicar.addActionListener(new ActionListener() {
+//			
+//			public void actionPerformed(ActionEvent e) {
+//				contentPane.remove(botoneraFacil);
+//				repaint();
+//				Botonera botoneraMedio = new Botonera(8);
+//				contentPane.add(botoneraMedio.getPanel(), BorderLayout.CENTER);
+//				
+//			}
+//		});
 		
 	}
 

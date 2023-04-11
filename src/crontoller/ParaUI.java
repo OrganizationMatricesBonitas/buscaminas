@@ -17,9 +17,9 @@ public class ParaUI implements ActionListener {
 
 	JPanel panel;
 	JCheckBoxMenuItem facil, medio, dificil;
-	Botonera botonesFacil, botonesMedio, botonesDificil;
 	Dificultad dificultad;
 	Botonera panelbotones;
+	Botonera botonesFacil, botonesMedio, botonesDificil;
 	
 	public ParaUI(JPanel contentPane, JCheckBoxMenuItem mnitFacil, JCheckBoxMenuItem mnitMedio,
 			JCheckBoxMenuItem mnitDificil, Botonera botoneraFacil, Botonera botoneraMedio, Botonera botoneraDificil) {
@@ -40,10 +40,19 @@ public class ParaUI implements ActionListener {
 		medio = mnitMedio;
 		dificil = mnitDificil;
 	}
+	public ParaUI(JPanel contentPane, JCheckBoxMenuItem mnitFacil, JCheckBoxMenuItem mnitMedio,
+			JCheckBoxMenuItem mnitDificil, Botonera botonera) {
+		this.panel = contentPane;
+		facil = mnitFacil;
+		medio = mnitMedio;
+		dificil = mnitDificil;
+		panelbotones = botonera;
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		try {
 			panel.remove(panelbotones);
+			panel.repaint();
 		}catch (Exception error) {
 			
 		}
@@ -53,6 +62,7 @@ public class ParaUI implements ActionListener {
 		panelbotones = new Botonera(dificultad.getLongitud());
 
 		panel.add(panelbotones.getPanel(), BorderLayout.CENTER);
+		panel.repaint();
 	}
 
 	private void showBotoneraSelected() {
