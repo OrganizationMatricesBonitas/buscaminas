@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import modelo.Botonera;
 import modelo.Dificultad;
+import view.UI;
 
 // herada de UI, no sabemos si estaira bien implementado
 public class ParaUI implements ActionListener {
@@ -20,6 +21,7 @@ public class ParaUI implements ActionListener {
 	Dificultad dificultad;
 	Botonera panelbotones;
 	Botonera botonesFacil, botonesMedio, botonesDificil;
+	UI frame;
 	
 	public ParaUI(JPanel contentPane, JCheckBoxMenuItem mnitFacil, JCheckBoxMenuItem mnitMedio,
 			JCheckBoxMenuItem mnitDificil, Botonera botoneraFacil, Botonera botoneraMedio, Botonera botoneraDificil) {
@@ -49,12 +51,27 @@ public class ParaUI implements ActionListener {
 		panelbotones = botonera;
 	}
 
+	public ParaUI(JPanel contentPane, JCheckBoxMenuItem mnitFacil, JCheckBoxMenuItem mnitMedio,
+			JCheckBoxMenuItem mnitDificil, Botonera botonera, UI ui) {
+		this.panel = contentPane;
+		facil = mnitFacil;
+		medio = mnitMedio;
+		dificil = mnitDificil;
+		panelbotones = botonera;
+		frame=ui;
+		
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		try {
-			panel.remove(panelbotones);
-			panel.repaint();
-		}catch (Exception error) {
+//			panel.remove(panelbotones);
+			panel.removeAll();
+//			frame.revalidate();
+//			frame.repaint();
+			System.out.println("Entro");
 			
+		}catch (Exception error) {
+			System.out.println(error.getMessage());
 		}
 //		hideBotonera();
 //		showBotoneraSelected();
@@ -62,7 +79,8 @@ public class ParaUI implements ActionListener {
 		panelbotones = new Botonera(dificultad.getLongitud());
 
 		panel.add(panelbotones.getPanel(), BorderLayout.CENTER);
-		panel.repaint();
+		frame.revalidate();
+		frame.repaint();
 	}
 
 	private void showBotoneraSelected() {

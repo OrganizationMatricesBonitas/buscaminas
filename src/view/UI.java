@@ -96,7 +96,8 @@ public class UI extends JFrame {
 //		
 //		paraUI = new ParaUI(contentPane, mnitFacil, mnitMedio,mnitDificil, botoneraFacil, botoneraMedio, botoneraDificil);
 //		paraUI = new ParaUI(contentPane, mnitFacil, mnitMedio,mnitDificil);
-		paraUI = new ParaUI(contentPane, mnitFacil, mnitMedio,mnitDificil, botoneraFacil);
+		
+		paraUI = new ParaUI(contentPane, mnitFacil, mnitMedio,mnitDificil, botoneraFacil,this);
 		
 		mnitInicar.addActionListener(paraUI);	
 //		mnitInicar.addActionListener(new ActionListener() {
