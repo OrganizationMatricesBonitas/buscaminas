@@ -17,26 +17,55 @@ public class ParaUI implements ActionListener {
 
 	JPanel panel;
 	JCheckBoxMenuItem facil, medio, dificil;
-	Botonera botonesFacil,botonesMedio,botonesDificil;
 	Dificultad dificultad;
+	Botonera panelbotones;
+	Botonera botonesFacil, botonesMedio, botonesDificil;
 	
 	public ParaUI(JPanel contentPane, JCheckBoxMenuItem mnitFacil, JCheckBoxMenuItem mnitMedio,
 			JCheckBoxMenuItem mnitDificil, Botonera botoneraFacil, Botonera botoneraMedio, Botonera botoneraDificil) {
-		this.panel=contentPane;
+		this.panel = contentPane;
 		facil = mnitFacil;
-		medio=mnitMedio;
-		dificil=mnitDificil;
+		medio = mnitMedio;
+		dificil = mnitDificil;
 		botonesFacil = botoneraFacil;
-		botonesMedio=botoneraMedio;
-		botonesDificil=botoneraDificil;
-		
+		botonesMedio = botoneraMedio;
+		botonesDificil = botoneraDificil;
+
+	}
+
+	public ParaUI(JPanel contentPane, JCheckBoxMenuItem mnitFacil, JCheckBoxMenuItem mnitMedio,
+			JCheckBoxMenuItem mnitDificil) {
+		this.panel = contentPane;
+		facil = mnitFacil;
+		medio = mnitMedio;
+		dificil = mnitDificil;
+	}
+	public ParaUI(JPanel contentPane, JCheckBoxMenuItem mnitFacil, JCheckBoxMenuItem mnitMedio,
+			JCheckBoxMenuItem mnitDificil, Botonera botonera) {
+		this.panel = contentPane;
+		facil = mnitFacil;
+		medio = mnitMedio;
+		dificil = mnitDificil;
+		panelbotones = botonera;
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		botonesFacil.getPanel().setVisible(false);
-		botonesMedio.getPanel().setVisible(false);
-		botonesDificil.getPanel().setVisible(false);
-		
+		try {
+			panel.remove(panelbotones);
+			panel.repaint();
+		}catch (Exception error) {
+			
+		}
+//		hideBotonera();
+//		showBotoneraSelected();
+		setDificultad();
+		panelbotones = new Botonera(dificultad.getLongitud());
+
+		panel.add(panelbotones.getPanel(), BorderLayout.CENTER);
+		panel.repaint();
+	}
+
+	private void showBotoneraSelected() {
 		if(facil.isSelected()) {
 			dificultad = Dificultad.facil;
 			botonesFacil.getPanel().setVisible(true);
@@ -50,11 +79,25 @@ public class ParaUI implements ActionListener {
 			botonesDificil.getPanel().setVisible(true);
 			//botonesDificil.resetController();
 		}
-		
-		
-//		Botonera panelbotones = new Botonera(dificultad.getLongitud());
-//
-//		panel.add(panelbotones.getContainerBotones(), BorderLayout.CENTER);
 	}
-	
+
+	private void setDificultad() {
+		if (facil.isSelected()) {
+			dificultad = Dificultad.facil;
+			// botonesFacil.resetController();
+		} else if (medio.isSelected()) {
+			dificultad = Dificultad.medio;
+			// botonesMedio.resetController();
+		} else {
+			dificultad = Dificultad.dificil;
+			// botonesDificil.resetController();
+		}
+	}
+
+	private void hideBotonera() {
+		botonesFacil.getPanel().setVisible(false);
+		botonesMedio.getPanel().setVisible(false);
+		botonesDificil.getPanel().setVisible(false);
+	}
+
 }
