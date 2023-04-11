@@ -59,6 +59,21 @@ public class UI extends JFrame {
 		mnLevels.add(mnitDificil);
 		group.add(mnitDificil);
 		
+		JMenu mnNewMenu = new JMenu("Densidad");
+		menuBar.add(mnNewMenu);
+		
+		ButtonGroup groupDensidad = new ButtonGroup();
+		JCheckBoxMenuItem mnitDensidadBaja = new JCheckBoxMenuItem("Baja");
+		mnNewMenu.add(mnitDensidadBaja);
+		groupDensidad.add(mnitDensidadBaja);
+		JCheckBoxMenuItem mnitDensidadMedia = new JCheckBoxMenuItem("Media");
+		mnNewMenu.add(mnitDensidadMedia);
+		groupDensidad.add(mnitDensidadMedia);
+		
+		JCheckBoxMenuItem mnitDensidadAlta = new JCheckBoxMenuItem("Alta");
+		groupDensidad.add(mnitDensidadAlta);
+		mnNewMenu.add(mnitDensidadAlta);
+		
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -67,22 +82,22 @@ public class UI extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		// Pincho facil
-		Botonera botoneraFacil = new Botonera(5);
-		botoneraFacil.getPanel().setVisible(false);
-		contentPane.add(botoneraFacil.getPanel(), BorderLayout.EAST);
+//		Botonera botoneraFacil = new Botonera(5);
+//		botoneraFacil.getPanel().setVisible(false);
+//		contentPane.add(botoneraFacil.getPanel(), BorderLayout.EAST);
+//		
+//		Botonera botoneraMedio = new Botonera(8);
+//		botoneraMedio.getPanel().setVisible(false);
+//		contentPane.add(botoneraMedio.getPanel(), BorderLayout.CENTER);
+//		
+//		Botonera botoneraDificil = new Botonera(12);
+//		botoneraDificil.getPanel().setVisible(false);
+//		contentPane.add(botoneraDificil.getPanel(), BorderLayout.WEST);
+//		
+//		paraUI = new ParaUI(contentPane, mnitFacil, mnitMedio,mnitDificil, botoneraFacil, botoneraMedio, botoneraDificil);
+		paraUI = new ParaUI(contentPane, mnitFacil, mnitMedio,mnitDificil);
 		
-		Botonera botoneraMedio = new Botonera(8);
-		botoneraMedio.getPanel().setVisible(false);
-		contentPane.add(botoneraMedio.getPanel(), BorderLayout.CENTER);
-		
-		Botonera botoneraDificil = new Botonera(12);
-		botoneraDificil.getPanel().setVisible(false);
-		contentPane.add(botoneraDificil.getPanel(), BorderLayout.WEST);
-		
-		paraUI = new ParaUI(contentPane, mnitFacil, mnitMedio,mnitDificil, botoneraFacil, botoneraMedio, botoneraDificil);
-		mnitInicar.addActionListener(paraUI);
-		
-		
+		mnitInicar.addActionListener(paraUI);	
 		
 	}
 

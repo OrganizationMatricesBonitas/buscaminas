@@ -57,7 +57,7 @@ public class TableroAleatorio extends Tablero {
 	}
 
 	public List<Coordenada> generaAleatorio(int minas, int longitud) {
-		// TODO
+		// TODO 
 		return null;
 
 	}
