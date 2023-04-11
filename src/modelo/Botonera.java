@@ -18,8 +18,9 @@ import crontoller.Controlador;
 
 
 public class Botonera extends JPanel {
-	Controlador controlador;
-	JPanel containerBotones;
+	
+	Controlador controlador; //Tendra datos
+	JPanel containerBotones; //Tiene los botones
 	
 	public Botonera(int lado) {
         
@@ -57,13 +58,13 @@ public class Botonera extends JPanel {
         }
 	}
 	
-	protected void renderTablero() {
+	protected void renderTablero() { 
 		Component[] componentes = containerBotones.getComponents();
 		
 		for (Component componente : componentes) {
 			Coordenada coordenada = ((MyButton) componente).getCoordenada();
 			if(!controlador.isVelada(coordenada)) {
-				String minasAlrededor = controlador.getMinasAlrededor(coordenada);
+				Integer minasAlrededor = controlador.getMinasAlrededor(coordenada);
 				desvelarBoton((MyButton) componente, String.valueOf(minasAlrededor), controlador.getColor(minasAlrededor));
 			}
 			
@@ -83,7 +84,7 @@ public class Botonera extends JPanel {
 		btn.setBorderPainted(true);
 		btn.setBorder(new LineBorder(color));
 		btn.setText(minasAlrededor);
-		btn.setForeground(Color.BLUE);
+		btn.setForeground(color);
 	}
 	
 	/*
