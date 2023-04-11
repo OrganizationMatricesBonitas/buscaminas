@@ -15,59 +15,58 @@ import javax.swing.border.LineBorder;
 
 import crontoller.Controlador;
 
-
-
 public class Botonera extends JPanel {
-	
-	Controlador controlador; //Tendra datos
-	JPanel containerBotones; //Tiene los botones
-	
+
+	Controlador controlador; // Tendra datos
+	JPanel containerBotones; // Tiene los botones
+
 	public Botonera(int lado) {
-        
-        setBounds(100, 100, 450, 300);
-        containerBotones = new JPanel();
-        containerBotones.setBorder(new EmptyBorder(5, 5, 5, 5));
-        containerBotones.setLayout(new GridLayout(lado, lado, 0, 0));
-        
-        generarBotones(lado);
-    }
-	
+
+		setBounds(100, 100, 450, 300);
+		containerBotones = new JPanel();
+		containerBotones.setBorder(new EmptyBorder(5, 5, 5, 5));
+		containerBotones.setLayout(new GridLayout(lado, lado, 0, 0));
+
+		generarBotones(lado);
+	}
+
 	private void generarBotones(int lado) {
 		for (int i = 0; i < lado; i++) {
-            for (int j = 0; j < lado; j++) {
-            	MyButton boton = new MyButton(new Coordenada(i, j));
+			for (int j = 0; j < lado; j++) {
+				MyButton boton = new MyButton(new Coordenada(i, j));
 				boton.setBounds(new Rectangle(40, 40));
-				boton.setMaximumSize(new Dimension(40,40));
+				boton.setMaximumSize(new Dimension(40, 40));
 				boton.setBorder(new LineBorder(new Color(200, 196, 195)));
 				// Velada para que no se focuse
 //				boton.setBorderPainted(false);
 				boton.setRolloverEnabled(false);
-                boton.addActionListener(new ActionListener() {
-					
+				boton.addActionListener(new ActionListener() {
+
 					public void actionPerformed(ActionEvent e) {
 						MyButton btn = (MyButton) e.getSource();
 						revelarBoton(btn);
 						// RENDERIZAR TABLERO
-						//renderTablero();
+						// renderTablero();
 					}
 				});
-                containerBotones.add(boton);
+				containerBotones.add(boton);
 
-            }
+			}
 
-        }
+		}
 	}
-	
-	protected void renderTablero() { 
+
+	protected void renderTablero() {
 		Component[] componentes = containerBotones.getComponents();
-		
+
 		for (Component componente : componentes) {
 			Coordenada coordenada = ((MyButton) componente).getCoordenada();
-			if(!controlador.isVelada(coordenada)) {
+			if (!controlador.isVelada(coordenada)) {
 				Integer minasAlrededor = controlador.getMinasAlrededor(coordenada);
-				desvelarBoton((MyButton) componente, String.valueOf(minasAlrededor), controlador.getColor(minasAlrededor));
+				desvelarBoton((MyButton) componente, String.valueOf(minasAlrededor),
+						controlador.getColor(minasAlrededor));
 			}
-			
+
 		}
 	}
 
@@ -75,7 +74,7 @@ public class Botonera extends JPanel {
 	public JPanel getPanel() {
 		return containerBotones;
 	}
-	
+
 	/*
 	 * Metodod final Para revelar Botones (Aun no implementado)
 	 */
@@ -83,10 +82,12 @@ public class Botonera extends JPanel {
 		btn.setContentAreaFilled(false);
 		btn.setBorderPainted(true);
 		btn.setBorder(new LineBorder(color));
-		btn.setText(minasAlrededor);
-		btn.setForeground(color);
+		if (!minasAlrededor.equals("0")) {
+			btn.setText(minasAlrededor);
+			btn.setForeground(color);
+		}
 	}
-	
+
 	/*
 	 * Metodo auxiliar apra desvelar botones ACTUAL
 	 */
@@ -94,7 +95,7 @@ public class Botonera extends JPanel {
 		btn.setContentAreaFilled(false);
 		btn.setBorderPainted(true);
 		btn.setBorder(new LineBorder(new Color(165, 170, 170)));
-		btn.setText(String.valueOf(btn.getCoordenada().getPosX())+String.valueOf(btn.getCoordenada().getPosY()));
+		btn.setText(String.valueOf(btn.getCoordenada().getPosX()) + String.valueOf(btn.getCoordenada().getPosY()));
 		btn.setForeground(Color.BLUE);
 	}
 }
