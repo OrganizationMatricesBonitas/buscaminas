@@ -24,6 +24,16 @@ public class Tablero {
 			}
 		}
 	}
+	public Tablero(int filas, int columnas,boolean mina, boolean velada, boolean marcada, int minasAlrededor) {
+		assert filas > 0;
+		assert columnas > 0;
+		casillas = new Casilla[filas][columnas];
+		for (int i = 0; i < casillas.length; i++) {
+			for (int j = 0; j < casillas[i].length; j++) {
+				casillas[i][j] = new Casilla( mina, velada, marcada, minasAlrededor);
+			}
+		}
+	}
 
 	public int getAlto() {
 		return casillas.length;

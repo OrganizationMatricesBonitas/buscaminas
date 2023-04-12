@@ -3,12 +3,23 @@ package modelo;
 
 public class Casilla {
 	
-	private boolean mina=false;
-	private boolean velada=true;
-	private boolean marcada=false;
-	private int minasAlrededor=0;
+	private boolean mina;
+	private boolean velada;
+	private boolean marcada;
+	private int minasAlrededor;
+	
+	public Casilla(boolean mina, boolean velada, boolean marcada, int minasAlrededor) {
+		super();
+		this.mina = mina;
+		this.velada = velada;
+		this.marcada = marcada;
+		this.minasAlrededor = minasAlrededor;
+	}
 	public Casilla() {
-		
+		mina=false;
+		velada=true;
+		marcada=false;
+		minasAlrededor=0;
 	}
 	public boolean isMina() {
 		return mina;

@@ -19,15 +19,23 @@ public class Botonera extends JPanel {
 
 	Controlador controlador; // Tendra datos
 	JPanel containerBotones; // Tiene los botones
+	int dimension;
+	boolean inGame;
+	
+	
 
 	public Botonera(int lado) {
-
+//		controlador = new Controlador(lado);
+		//Creamos juego (Tablero) una vez hayamos pulsado el primer boton
+		inGame = false;
+		this.dimension=lado;
 		setBounds(100, 100, 450, 300);
 		containerBotones = new JPanel();
 		containerBotones.setBorder(new EmptyBorder(5, 5, 5, 5));
 		containerBotones.setLayout(new GridLayout(lado, lado, 0, 0));
 
 		generarBotones(lado);
+//		renderTablero();
 	}
 
 	private void generarBotones(int lado) {
@@ -44,15 +52,17 @@ public class Botonera extends JPanel {
 
 					public void actionPerformed(ActionEvent e) {
 						MyButton btn = (MyButton) e.getSource();
+						if(inGame) {
 						revelarBoton(btn);
 						// RENDERIZAR TABLERO
 						// renderTablero();
+						}else {
+							controlador = new Controlador(dimension, btn.getCoordenada());
+						}
 					}
 				});
 				containerBotones.add(boton);
-
 			}
-
 		}
 	}
 
@@ -97,5 +107,17 @@ public class Botonera extends JPanel {
 		btn.setBorder(new LineBorder(new Color(165, 170, 170)));
 		btn.setText(String.valueOf(btn.getCoordenada().getPosX()) + String.valueOf(btn.getCoordenada().getPosY()));
 		btn.setForeground(Color.BLUE);
+	}
+	
+	public int getDimension() {
+		return this.dimension;
+	}
+
+	public boolean isInGame() {
+		return inGame;
+	}
+
+	public void setInGame(boolean inGame) {
+		this.inGame = inGame;
 	}
 }
