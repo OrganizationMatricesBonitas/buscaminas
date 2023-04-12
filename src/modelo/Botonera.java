@@ -21,14 +21,12 @@ public class Botonera extends JPanel {
 	JPanel containerBotones; // Tiene los botones
 	int dimension;
 	boolean inGame;
-	
-	
 
 	public Botonera(int lado) {
 //		controlador = new Controlador(lado);
-		//Creamos juego (Tablero) una vez hayamos pulsado el primer boton
+		// Creamos juego (Tablero) una vez hayamos pulsado el primer boton
 		inGame = false;
-		this.dimension=lado;
+		this.dimension = lado;
 		setBounds(100, 100, 450, 300);
 		containerBotones = new JPanel();
 		containerBotones.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -52,12 +50,15 @@ public class Botonera extends JPanel {
 
 					public void actionPerformed(ActionEvent e) {
 						MyButton btn = (MyButton) e.getSource();
-						if(inGame) {
-						revelarBoton(btn);
-						// RENDERIZAR TABLERO
-						// renderTablero();
-						}else {
+						if (inGame) {
+//						revelarBoton(btn);
+							// RENDERIZAR TABLERO
+							controlador.getTablero().desvelarContiguas(btn.getCoordenada());
+							renderTablero();
+						} else {
+							inGame = true;
 							controlador = new Controlador(dimension, btn.getCoordenada());
+							controlador.getTablero().desvelarContiguas(btn.getCoordenada());
 						}
 					}
 				});
@@ -96,6 +97,9 @@ public class Botonera extends JPanel {
 			btn.setText(minasAlrededor);
 			btn.setForeground(color);
 		}
+//		else if(){
+//			
+//		}
 	}
 
 	/*
@@ -108,7 +112,7 @@ public class Botonera extends JPanel {
 		btn.setText(String.valueOf(btn.getCoordenada().getPosX()) + String.valueOf(btn.getCoordenada().getPosY()));
 		btn.setForeground(Color.BLUE);
 	}
-	
+
 	public int getDimension() {
 		return this.dimension;
 	}
