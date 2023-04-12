@@ -82,7 +82,7 @@ public class UI extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		// Pincho facil
-		botoneraFacil = new Botonera(5);
+		botoneraFacil = new Botonera(5,20);
 		contentPane.add(botoneraFacil.getPanel(), BorderLayout.CENTER);
 //		botoneraFacil.getPanel().setVisible(false);
 //		

@@ -3,6 +3,7 @@ package crontoller;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.border.LineBorder;
 
@@ -25,6 +26,9 @@ public class Controlador {
 
 	public Controlador(int lado, Coordenada coordenada) {
 		tablero = new TableroAleatorio(lado, lado, coordenada);
+	}
+	public Controlador(int lado, List<Coordenada> posiciones) {
+		tablero = new TableroAleatorio(lado, posiciones);
 	}
 
 	public TableroAleatorio getTablero() {
