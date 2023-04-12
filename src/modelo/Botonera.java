@@ -38,6 +38,17 @@ public class Botonera extends JPanel {
 //		renderTablero();
 	}
 
+	public Botonera(int lado, int densidad) {
+		inGame = false;
+		this.dimension = lado;
+		setBounds(100, 100, 450, 300);
+		containerBotones = new JPanel();
+		containerBotones.setBorder(new EmptyBorder(5, 5, 5, 5));
+		containerBotones.setLayout(new GridLayout(lado, lado, 0, 0));
+
+		generarBotones(lado);
+	}
+
 	private void generarBotones(int lado) {
 		for (int i = 0; i < lado; i++) {
 			for (int j = 0; j < lado; j++) {
@@ -45,8 +56,7 @@ public class Botonera extends JPanel {
 				boton.setBounds(new Rectangle(40, 40));
 				boton.setMaximumSize(new Dimension(40, 40));
 				boton.setBorder(new LineBorder(new Color(200, 196, 195)));
-				// Velada para que no se focuse
-//				boton.setBorderPainted(false);
+				// Al pasar el raton no brillara el boton
 				boton.setRolloverEnabled(false);
 				boton.addActionListener(new ActionListener() {
 
@@ -65,6 +75,7 @@ public class Botonera extends JPanel {
 							List<Coordenada> posiciones = new ArrayList<Coordenada>();
 							controlador = new Controlador(dimension, btn.getCoordenada());
 							controlador.getTablero().desvelarContiguas(btn.getCoordenada());
+							renderTablero();
 						}
 					}
 				});
@@ -98,7 +109,7 @@ public class Botonera extends JPanel {
 	private void desvelarBoton(MyButton btn, String minasAlrededor, Color color) {
 		btn.setContentAreaFilled(false);
 		btn.setBorderPainted(true);
-		btn.setBorder(new LineBorder(color));
+//		btn.setBorder(new LineBorder(color));
 		if (!minasAlrededor.equals("0")) {
 			btn.setText(minasAlrededor);
 			btn.setForeground(color);

@@ -10,6 +10,7 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JPanel;
 
 import modelo.Botonera;
+import modelo.Densidad;
 import modelo.Dificultad;
 import view.UI;
 
@@ -19,6 +20,7 @@ public class ParaUI implements ActionListener {
 	JPanel panel;
 	JCheckBoxMenuItem facil, medio, dificil;
 	Dificultad dificultad;
+	Densidad densidad;
 	Botonera panelbotones;
 	Botonera botonesFacil, botonesMedio, botonesDificil;
 	UI frame;
@@ -64,37 +66,19 @@ public class ParaUI implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		try {
-//			panel.remove(panelbotones);
 			panel.removeAll();
 //			frame.revalidate();
 //			frame.repaint();		
 		}catch (Exception error) {
 			System.out.println(error.getMessage());
 		}
-//		hideBotonera();
-//		showBotoneraSelected();
+
 		setDificultad();
 		panelbotones = new Botonera(dificultad.getLongitud());
 
 		panel.add(panelbotones.getPanel(), BorderLayout.CENTER);
 		frame.revalidate();
 		frame.repaint();
-	}
-
-	private void showBotoneraSelected() {
-		if(facil.isSelected()) {
-			dificultad = Dificultad.facil;
-			botonesFacil.getPanel().setVisible(true);
-			//botonesFacil.resetController();
-		}else if(medio.isSelected()) {
-			dificultad = Dificultad.medio;
-			botonesMedio.getPanel().setVisible(true);
-			//botonesMedio.resetController();
-		}else {
-			dificultad = Dificultad.dificil;
-			botonesDificil.getPanel().setVisible(true);
-			//botonesDificil.resetController();
-		}
 	}
 
 	private void setDificultad() {
@@ -110,10 +94,5 @@ public class ParaUI implements ActionListener {
 		}
 	}
 
-	private void hideBotonera() {
-		botonesFacil.getPanel().setVisible(false);
-		botonesMedio.getPanel().setVisible(false);
-		botonesDificil.getPanel().setVisible(false);
-	}
 
 }
