@@ -40,7 +40,6 @@ public class Botones extends JFrame {
 	 */
 	public static void main(String[] args) {
 		
-		System.out.println("Prueba");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
