@@ -56,7 +56,7 @@ public class Coordenada {
 
 	@Override
 	public String toString() {
-		return "Posicion X" + posX + " Y " + posY;
+		return "Posicion X " + posX + " Y " + posY;
 	}
 	
 	

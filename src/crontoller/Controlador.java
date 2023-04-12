@@ -19,6 +19,14 @@ public class Controlador {
 		this.tablero.revelarCasilla(coordenada);
 	}
 
+	public Controlador(int lado) {
+		tablero = new TableroAleatorio(lado, lado);
+	}
+
+	public Controlador(int lado, Coordenada coordenada) {
+		tablero = new TableroAleatorio(lado, lado, coordenada);
+	}
+
 	public TableroAleatorio getTablero() {
 		return tablero;
 	}

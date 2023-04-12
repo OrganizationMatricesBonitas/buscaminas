@@ -2,37 +2,100 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import utiles.Utiles;
 
 public class TableroAleatorio extends Tablero {
 	private boolean terminado = false;
-
+	boolean[][] casillasDesveladas;
+//	List<Coordenada> posicionesMinas;
 	// Constructor aleatorio
+
 	public TableroAleatorio(int lado, int minas) {
 		super(lado);
-		List<Coordenada> posiciones = generaAleatorio(minas, lado);
+		minas = (int) Math.round(lado * 0.20); // TODO Quitar esto cuando se implemente la densidad
+		casillasDesveladas = new boolean[lado][lado];
+		List<Coordenada> posicionesMinas = generaAleatorio(minas, lado);
+		// Vienen los atributos de casilla ya iniciados por defecto
+//		iniciartablero();
+		ponerMinas(posicionesMinas);
+		contarMinasAlrededor(posicionesMinas);
+	}
+
+	/*
+	 * Funcion que establecera los atributos de las casillas
+	 */
+	private void iniciartablero() {
+		for (int i = 0; i < this.getAlto(); i++) {
+			for (int j = 0; j < this.getAncho(); j++) {
+				Coordenada coor = new Coordenada(i, j);
+				Casilla casilla = this.getCasilla(coor);
+				casilla.setMinasAlrededor(0);// Iniciamos con 0
+			}
+		}
+
 	}
 
 	// constructor no aleatorio
 	public TableroAleatorio(int lado, List<Coordenada> posiciones) {
 		super(lado);
+		contarMinasAlrededor(posiciones);
+	}
+
+	public TableroAleatorio(int lado, int minas, Coordenada coordenada) {
+		super(lado);
+		minas = (int) Math.round(lado * 0.20); // TODO Quitar esto cuando se implemente la densidad
+		casillasDesveladas = new boolean[lado][lado];
+		List<Coordenada> posicionesMinas = generaAleatorio(minas, lado,coordenada);
+		
+//		iniciartablero();
+		ponerMinas(posicionesMinas);
+		contarMinasAlrededor(posicionesMinas);
+	}
+	
+	private List<Coordenada> generaAleatorio(int minas, int longitud, Coordenada coordenada) {
+		List<Coordenada> minasRnd = new ArrayList<Coordenada>();
+		Random rnd = new Random();
+		while (minasRnd.size() < minas) {
+			Coordenada xy = new Coordenada(rnd.nextInt(longitud), rnd.nextInt(longitud));
+			if (minasRnd.indexOf(xy) == -1 && !coordenada.equals(xy)) {
+				minasRnd.add(xy);
+			}
+		}
+		return minasRnd;
+	}
+
+	private void ponerMinas(List<Coordenada> posiciones) {
+		for (Coordenada coordenada : posiciones) {
+			this.getCasilla(coordenada).setMina(true);
+		}
 	}
 
 	public void contarMinasAlrededor(List<Coordenada> posiciones) {
-		// TODO
+		for (Coordenada coordenada : posiciones) {
+
+			for (int i = coordenada.getPosX() - 1; i <= coordenada.getPosX() + 1; i++) {
+				for (int j = coordenada.getPosY() - 1; j <= coordenada.getPosY() + 1; j++) {
+					if (isInToBounds(coordenada)) {
+						Casilla casilla = this.getCasilla(new Coordenada(i, j));
+						casilla.setMinasAlrededor(casilla.getMinasAlrededor() + 1);
+					}
+				}
+			}
+		}
 	}
 
 	public boolean[][] getCasillasDesveladas() {
 
-		return null;
+		return casillasDesveladas;
 	}
 
 	public void desvelarContiguas(Coordenada lugar) {
 		// tablero, lugar
 		Casilla casilla = getCasilla(lugar);
-		if (casilla.isVelada()) {
-			casilla.setVelada(false);
+		if (casilla.isVelada() && !casilla.isMarcada()) {
+			revelarCasilla(lugar);
 			if (!casilla.isMina()) {
 				if (casilla.getMinasAlrededor() == 0) {
 					// desde el punto -1,-1 con respecto a casilla hasta +1,+1
@@ -46,25 +109,59 @@ public class TableroAleatorio extends Tablero {
 
 					}
 				}
+			} else {
+				desvelarTablero();
 			}
 
 		}
 	}
 
+	/*
+	 * Desvela todo el tablero
+	 */
+	private void desvelarTablero() {
+		for (int i = 0; i < casillasDesveladas.length; i++) {
+			for (int j = 0; j < casillasDesveladas[0].length; j++) {
+				casillasDesveladas[i][j] = true;
+			}
+		}
+
+	}
+
 	private boolean isInToBounds(Coordenada coordenada) {
-		// TODO Auto-generated method stub
-		return false;
+		int posX = coordenada.getPosX();
+		int posY = coordenada.getPosY();
+
+		boolean ladoSuperior = posX >= 0;
+		boolean ladoInferior = posX < getAlto();
+		boolean ladoIzquierdo = posY >= 0;
+		boolean ladoDerecho = posY < getAncho();
+
+		return ladoSuperior && ladoInferior && ladoIzquierdo && ladoDerecho;
+		// Se que hay en coordenada un Metodo isInToLimit(ancho, alto) y es lo mismo que
+		// esto
 	}
 
 	public List<Coordenada> generaAleatorio(int minas, int longitud) {
-		// TODO 
-		return null;
+		List<Coordenada> minasRnd = new ArrayList<Coordenada>();
+		Random rnd = new Random();
+		while (minasRnd.size() < minas) {
+			Coordenada xy = new Coordenada(rnd.nextInt(longitud), rnd.nextInt(longitud));
+			if (minasRnd.indexOf(xy) != -1) {
+				minasRnd.add(xy);
+			}
+		}
+		return minasRnd;
 
 	}
 
+	/*
+	 * Metodo que desvelara una casilla Actualizando asi tanto la matriz Boolean
+	 * desveladas como la el atributo boolean (velada) de la casilla
+	 */
 	public void revelarCasilla(Coordenada coordenada) {
-		// TODO Auto-generated method stub
-		
+		casillasDesveladas[coordenada.getPosX()][coordenada.getPosY()] = true;
+		this.getCasilla(coordenada).setVelada(false);
 	}
 
 }

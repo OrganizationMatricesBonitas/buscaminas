@@ -67,9 +67,7 @@ public class ParaUI implements ActionListener {
 //			panel.remove(panelbotones);
 			panel.removeAll();
 //			frame.revalidate();
-//			frame.repaint();
-			System.out.println("Entro");
-			
+//			frame.repaint();		
 		}catch (Exception error) {
 			System.out.println(error.getMessage());
 		}
