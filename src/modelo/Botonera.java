@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -57,6 +59,10 @@ public class Botonera extends JPanel {
 							renderTablero();
 						} else {
 							inGame = true;
+							//Aleatorio
+//							controlador = new Controlador(dimension, btn.getCoordenada());
+							//No Aleatorio
+							List<Coordenada> posiciones = new ArrayList<Coordenada>();
 							controlador = new Controlador(dimension, btn.getCoordenada());
 							controlador.getTablero().desvelarContiguas(btn.getCoordenada());
 						}
