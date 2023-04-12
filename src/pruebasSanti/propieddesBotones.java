@@ -13,6 +13,7 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.Insets;
 import javax.swing.border.TitledBorder;
+import javax.swing.ImageIcon;
 
 public class propieddesBotones extends JFrame {
 
@@ -88,7 +89,10 @@ public class propieddesBotones extends JFrame {
 		btn6_1.setBorder(new TitledBorder(new LineBorder(new Color(128, 128, 128)), "", TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, Color.GRAY));
 		contentPane.add(btn6_1);
 		
-		JButton btn7 = new JButton("7");
+		JButton btn7 = new JButton("");
+		ImageIcon icono = new ImageIcon("/res/mine_icon_48x48.ico");
+//		btn7.setSelectedIcon(new ImageIcon(propieddesBotones.class.getResource("/res/mine_icon_48x48.ico")));
+		btn7.setIcon(new ImageIcon(propieddesBotones.class.getResource("/res/mine_icon_48x48.ico")));
 		contentPane.add(btn7);
 		
 		JButton btn6_2 = new JButton("6");

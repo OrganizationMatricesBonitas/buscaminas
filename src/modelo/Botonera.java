@@ -4,52 +4,62 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import crontoller.Controlador;
+import view.UI;
 
 public class Botonera extends JPanel {
 
 	Controlador controlador; // Tendra datos
 	JPanel containerBotones; // Tiene los botones
-	int dimension;
+	int lado;
+	int minas;
 	boolean inGame;
-
+	ImageIcon minaIcon;
+//	UI frame;
+	
 	public Botonera(int lado) {
 //		controlador = new Controlador(lado);
 		// Creamos juego (Tablero) una vez hayamos pulsado el primer boton
 		inGame = false;
-		this.dimension = lado;
+		minaIcon=new ImageIcon("/res/mine_icon_48x48.ico");
+		this.lado = lado;
 		setBounds(100, 100, 450, 300);
 		containerBotones = new JPanel();
 		containerBotones.setBorder(new EmptyBorder(5, 5, 5, 5));
 		containerBotones.setLayout(new GridLayout(lado, lado, 0, 0));
 
-		generarBotones(lado);
+		generarBotones();
 //		renderTablero();
 	}
 
-	public Botonera(int lado, int densidad) {
+	public Botonera(int lado, int minas) {
 		inGame = false;
-		this.dimension = lado;
+		minaIcon=new ImageIcon("./res/mine_icon_96x96.ico");
+//		this.frame = frame;
+		this.lado = lado;
+		this.minas = minas;
 		setBounds(100, 100, 450, 300);
 		containerBotones = new JPanel();
 		containerBotones.setBorder(new EmptyBorder(5, 5, 5, 5));
 		containerBotones.setLayout(new GridLayout(lado, lado, 0, 0));
 
-		generarBotones(lado);
+		generarBotones();
 	}
 
-	private void generarBotones(int lado) {
+	private void generarBotones() {
 		for (int i = 0; i < lado; i++) {
 			for (int j = 0; j < lado; j++) {
 				MyButton boton = new MyButton(new Coordenada(i, j));
@@ -66,17 +76,21 @@ public class Botonera extends JPanel {
 //						revelarBoton(btn);
 							// RENDERIZAR TABLERO
 							controlador.getTablero().desvelarContiguas(btn.getCoordenada());
-							renderTablero();
+							
 						} else {
 							inGame = true;
-							//Aleatorio
-//							controlador = new Controlador(dimension, btn.getCoordenada());
-							//No Aleatorio
-							List<Coordenada> posiciones = new ArrayList<Coordenada>();
-							controlador = new Controlador(dimension, btn.getCoordenada());
+							// Aleatorio
+//							controlador = new Controlador(lado,minas, btn.getCoordenada());
+							// No Aleatorio
+//							List<Coordenada> posiciones = new ArrayList<Coordenada>();
+//							posiciones.add(new Coordenada(2, 2));
+//							posiciones.add(new Coordenada(2, 4));
+//							posiciones.add(new Coordenada(3, 3));
+							controlador = new Controlador(lado, minas, btn.getCoordenada());
+//							controlador = new Controlador(lado, posiciones);
 							controlador.getTablero().desvelarContiguas(btn.getCoordenada());
-							renderTablero();
 						}
+						renderTablero();
 					}
 				});
 				containerBotones.add(boton);
@@ -94,7 +108,6 @@ public class Botonera extends JPanel {
 				desvelarBoton((MyButton) componente, String.valueOf(minasAlrededor),
 						controlador.getColor(minasAlrededor));
 			}
-
 		}
 	}
 
@@ -107,20 +120,24 @@ public class Botonera extends JPanel {
 	 * Metodod final Para revelar Botones (Aun no implementado)
 	 */
 	private void desvelarBoton(MyButton btn, String minasAlrededor, Color color) {
-		btn.setContentAreaFilled(false);
-		btn.setBorderPainted(true);
-//		btn.setBorder(new LineBorder(color));
-		if (!minasAlrededor.equals("0")) {
-			btn.setText(minasAlrededor);
-			btn.setForeground(color);
+		Casilla casilla = controlador.getTablero().getCasilla(btn.getCoordenada());
+		if (casilla.isMina()) {
+			btn.setBackground(Color.RED);
+			// getScaledInstance(btn.getWidth(), btn.getHeight(), Image.SCALE_SMOOTH) -> (anchoBoton, AltoBoton, Escalado Suave)
+//			btn.setIcon(new ImageIcon(minaIcon.getImage().getScaledInstance(btn.getWidth(), btn.getHeight(), Image.SCALE_SMOOTH)));
+			btn.setIcon(minaIcon);
+		} else {
+			btn.setContentAreaFilled(false);
+			if (!minasAlrededor.equals("0")) {
+				btn.setText(minasAlrededor);
+				btn.setForeground(color);
+			}
 		}
-//		else if(){
-//			
-//		}
+
 	}
 
 	/*
-	 * Metodo auxiliar apra desvelar botones ACTUAL
+	 * Metodo auxiliar apra desvelar botones Anterior
 	 */
 	private void revelarBoton(MyButton btn) {
 		btn.setContentAreaFilled(false);
@@ -131,7 +148,7 @@ public class Botonera extends JPanel {
 	}
 
 	public int getDimension() {
-		return this.dimension;
+		return this.lado;
 	}
 
 	public boolean isInGame() {

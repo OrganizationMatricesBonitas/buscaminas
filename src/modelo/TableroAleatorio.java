@@ -40,12 +40,15 @@ public class TableroAleatorio extends Tablero {
 	// constructor no aleatorio
 	public TableroAleatorio(int lado, List<Coordenada> posiciones) {
 		super(lado);
+		casillasDesveladas = new boolean[lado][lado];
+		contarMinasAlrededor(posiciones);
+		ponerMinas(posiciones);
 		contarMinasAlrededor(posiciones);
 	}
 
 	public TableroAleatorio(int lado, int minas, Coordenada coordenada) {
 		super(lado);
-		minas = (int) Math.round(lado * 0.20); // TODO Quitar esto cuando se implemente la densidad
+		//minas = (int) Math.round(lado * 0.20); // TODO Quitar esto cuando se implemente la densidad
 		casillasDesveladas = new boolean[lado][lado];
 		List<Coordenada> posicionesMinas = generaAleatorio(minas, lado,coordenada);
 		
@@ -126,7 +129,6 @@ public class TableroAleatorio extends Tablero {
 				casillasDesveladas[i][j] = true;
 			}
 		}
-
 	}
 
 	private boolean isInToBounds(Coordenada coordenada) {

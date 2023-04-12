@@ -24,8 +24,8 @@ public class Controlador {
 		tablero = new TableroAleatorio(lado, lado);
 	}
 
-	public Controlador(int lado, Coordenada coordenada) {
-		tablero = new TableroAleatorio(lado, lado, coordenada);
+	public Controlador(int lado,int minas, Coordenada coordenada) {
+		tablero = new TableroAleatorio(lado, minas, coordenada);
 	}
 	public Controlador(int lado, List<Coordenada> posiciones) {
 		tablero = new TableroAleatorio(lado, posiciones);
