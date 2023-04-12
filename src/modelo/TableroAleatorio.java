@@ -77,8 +77,9 @@ public class TableroAleatorio extends Tablero {
 
 			for (int i = coordenada.getPosX() - 1; i <= coordenada.getPosX() + 1; i++) {
 				for (int j = coordenada.getPosY() - 1; j <= coordenada.getPosY() + 1; j++) {
-					if (isInToBounds(coordenada)) {
-						Casilla casilla = this.getCasilla(new Coordenada(i, j));
+					Coordenada nuevaCoordenada = new Coordenada(i, j);
+					if (isInToBounds(nuevaCoordenada)) {
+						Casilla casilla = this.getCasilla(nuevaCoordenada);
 						casilla.setMinasAlrededor(casilla.getMinasAlrededor() + 1);
 					}
 				}
