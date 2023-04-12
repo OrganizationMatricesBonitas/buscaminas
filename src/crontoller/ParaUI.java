@@ -19,39 +19,11 @@ public class ParaUI implements ActionListener {
 
 	JPanel panel;
 	JCheckBoxMenuItem facil, medio, dificil;
+	JCheckBoxMenuItem baja, media, alta;
 	Dificultad dificultad;
 	Densidad densidad;
 	Botonera panelbotones;
-	Botonera botonesFacil, botonesMedio, botonesDificil;
 	UI frame;
-	
-	public ParaUI(JPanel contentPane, JCheckBoxMenuItem mnitFacil, JCheckBoxMenuItem mnitMedio,
-			JCheckBoxMenuItem mnitDificil, Botonera botoneraFacil, Botonera botoneraMedio, Botonera botoneraDificil) {
-		this.panel = contentPane;
-		facil = mnitFacil;
-		medio = mnitMedio;
-		dificil = mnitDificil;
-		botonesFacil = botoneraFacil;
-		botonesMedio = botoneraMedio;
-		botonesDificil = botoneraDificil;
-
-	}
-
-	public ParaUI(JPanel contentPane, JCheckBoxMenuItem mnitFacil, JCheckBoxMenuItem mnitMedio,
-			JCheckBoxMenuItem mnitDificil) {
-		this.panel = contentPane;
-		facil = mnitFacil;
-		medio = mnitMedio;
-		dificil = mnitDificil;
-	}
-	public ParaUI(JPanel contentPane, JCheckBoxMenuItem mnitFacil, JCheckBoxMenuItem mnitMedio,
-			JCheckBoxMenuItem mnitDificil, Botonera botonera) {
-		this.panel = contentPane;
-		facil = mnitFacil;
-		medio = mnitMedio;
-		dificil = mnitDificil;
-		panelbotones = botonera;
-	}
 
 	public ParaUI(JPanel contentPane, JCheckBoxMenuItem mnitFacil, JCheckBoxMenuItem mnitMedio,
 			JCheckBoxMenuItem mnitDificil, Botonera botonera, UI ui) {
@@ -61,6 +33,20 @@ public class ParaUI implements ActionListener {
 		dificil = mnitDificil;
 		panelbotones = botonera;
 		frame=ui;
+		
+	}
+	public ParaUI(JPanel contentPane, JCheckBoxMenuItem mnitFacil, JCheckBoxMenuItem mnitMedio,
+			JCheckBoxMenuItem mnitDificil,JCheckBoxMenuItem baja,JCheckBoxMenuItem media,
+			JCheckBoxMenuItem alta, Botonera botonera, UI ui) {
+		this.panel = contentPane;
+		facil = mnitFacil;
+		medio = mnitMedio;
+		dificil = mnitDificil;
+		panelbotones = botonera;
+		frame=ui;
+		this.baja=baja;
+		this.media=media;
+		this.alta=alta;
 		
 	}
 
@@ -74,12 +60,20 @@ public class ParaUI implements ActionListener {
 		}
 
 		setDificultad();
-		panelbotones = new Botonera(dificultad.getLongitud());
+		setDensidad();
+		double porcentaje = Double.valueOf(densidad.getPorcentaje())/100;
+		int superficie = dificultad.getLongitud()*dificultad.getLongitud();
+		
+		int minas = (int) Math.round(superficie*porcentaje);
+		System.out.println(minas);
+//		panelbotones = new Botonera(dificultad.getLongitud());
+		panelbotones = new Botonera(dificultad.getLongitud(),minas);
 
 		panel.add(panelbotones.getPanel(), BorderLayout.CENTER);
 		frame.revalidate();
 		frame.repaint();
 	}
+
 
 	private void setDificultad() {
 		if (facil.isSelected()) {
@@ -92,6 +86,17 @@ public class ParaUI implements ActionListener {
 			dificultad = Dificultad.dificil;
 			// botonesDificil.resetController();
 		}
+	}
+	
+	private void setDensidad() {
+		if(baja.isSelected()) {
+			densidad=Densidad.baja;
+		}else if(media.isSelected()) {
+			densidad=Densidad.media;
+		}else {
+			densidad=Densidad.alta;
+		}
+		
 	}
 
 

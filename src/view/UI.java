@@ -64,8 +64,10 @@ public class UI extends JFrame {
 		
 		ButtonGroup groupDensidad = new ButtonGroup();
 		JCheckBoxMenuItem mnitDensidadBaja = new JCheckBoxMenuItem("Baja");
+		mnitDensidadBaja.setSelected(true);
 		mnNewMenu.add(mnitDensidadBaja);
 		groupDensidad.add(mnitDensidadBaja);
+		
 		JCheckBoxMenuItem mnitDensidadMedia = new JCheckBoxMenuItem("Media");
 		mnNewMenu.add(mnitDensidadMedia);
 		groupDensidad.add(mnitDensidadMedia);
@@ -81,36 +83,15 @@ public class UI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		// Pincho facil
-		botoneraFacil = new Botonera(5,20);
+		// Inicial Facil
+		botoneraFacil = new Botonera(5,3);
 		contentPane.add(botoneraFacil.getPanel(), BorderLayout.CENTER);
-//		botoneraFacil.getPanel().setVisible(false);
-//		
-//		Botonera botoneraMedio = new Botonera(8);
-//		botoneraMedio.getPanel().setVisible(false);
-//		contentPane.add(botoneraMedio.getPanel(), BorderLayout.CENTER);
-//		
-//		Botonera botoneraDificil = new Botonera(12);
-//		botoneraDificil.getPanel().setVisible(false);
-//		contentPane.add(botoneraDificil.getPanel(), BorderLayout.WEST);
-//		
-//		paraUI = new ParaUI(contentPane, mnitFacil, mnitMedio,mnitDificil, botoneraFacil, botoneraMedio, botoneraDificil);
-//		paraUI = new ParaUI(contentPane, mnitFacil, mnitMedio,mnitDificil);
-		
-		paraUI = new ParaUI(contentPane, mnitFacil, mnitMedio,mnitDificil, botoneraFacil,this);
+
+		paraUI = new ParaUI(contentPane, mnitFacil, mnitMedio,mnitDificil,mnitDensidadBaja,
+							mnitDensidadMedia, mnitDensidadAlta, botoneraFacil,this);
+//		paraUI = new ParaUI(contentPane, mnitFacil, mnitMedio,mnitDificil, botoneraFacil,this);
 		
 		mnitInicar.addActionListener(paraUI);	
-//		mnitInicar.addActionListener(new ActionListener() {
-//			
-//			public void actionPerformed(ActionEvent e) {
-//				contentPane.remove(botoneraFacil);
-//				repaint();
-//				Botonera botoneraMedio = new Botonera(8);
-//				contentPane.add(botoneraMedio.getPanel(), BorderLayout.CENTER);
-//				
-//			}
-//		});
 		
 	}
-
 }	
