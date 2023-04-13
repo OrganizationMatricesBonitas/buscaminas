@@ -65,7 +65,7 @@ public class ParaUI implements ActionListener {
 		int superficie = dificultad.getLongitud()*dificultad.getLongitud();
 		
 		int minas = (int) Math.round(superficie*porcentaje);
-		System.out.println(minas);
+//		System.out.println(minas);
 //		panelbotones = new Botonera(dificultad.getLongitud());
 		panelbotones = new Botonera(dificultad.getLongitud(),minas);
 

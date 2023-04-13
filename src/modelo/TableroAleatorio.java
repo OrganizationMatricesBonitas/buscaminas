@@ -60,13 +60,26 @@ public class TableroAleatorio extends Tablero {
 	private List<Coordenada> generaAleatorio(int minas, int longitud, Coordenada coordenada) {
 		List<Coordenada> minasRnd = new ArrayList<Coordenada>();
 		Random rnd = new Random();
+		List<Coordenada> alrededor = getCasillasEntorno(coordenada);
 		while (minasRnd.size() < minas) {
 			Coordenada xy = new Coordenada(rnd.nextInt(longitud), rnd.nextInt(longitud));
-			if (minasRnd.indexOf(xy) == -1 && !coordenada.equals(xy)) {
+			if (minasRnd.indexOf(xy) == -1 && alrededor.indexOf(xy) == -1) {
 				minasRnd.add(xy);
 			}
 		}
 		return minasRnd;
+	}
+	
+	
+
+	private List<Coordenada> getCasillasEntorno(Coordenada coordenada) {
+		List <Coordenada> casillasEntorno = new ArrayList<Coordenada>();
+		for (int i = coordenada.getPosX() - 1; i <= coordenada.getPosX() + 1; i++) {
+			for (int j = coordenada.getPosY() - 1; j <= coordenada.getPosY() + 1; j++) {
+				casillasEntorno.add(new Coordenada(i, j));
+			}
+		}
+		return casillasEntorno;
 	}
 
 	private void ponerMinas(List<Coordenada> posiciones) {
