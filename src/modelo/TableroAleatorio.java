@@ -140,6 +140,7 @@ public class TableroAleatorio extends Tablero {
 		for (int i = 0; i < casillasDesveladas.length; i++) {
 			for (int j = 0; j < casillasDesveladas[0].length; j++) {
 				casillasDesveladas[i][j] = true;
+				this.getCasilla(new Coordenada(i, j)).setVelada(false);
 			}
 		}
 	}
